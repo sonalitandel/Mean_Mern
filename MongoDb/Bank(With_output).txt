@@ -1,0 +1,385 @@
+Choose appropriate primary key(s) 1
+1. bid
+
+ 
+
+Create index on primary key(s) 2
+2. db.Bank.ensureIndex({bid:101},{unique:true})
+
+
+
+
+The names and cities of all borrowers.  3
+3. db.Bank.find({},{"cust_details.cname":1,"cust_details.city":1,_id:0})
+
+/* 1 */
+{
+    "cust_details" : {
+        "cname" : "Ram",
+        "city" : "chennai"
+    }
+}
+
+/* 2 */
+{
+    "cust_details" : {
+        "cname" : "Monica",
+        "city" : "pune"
+    }
+}
+
+/* 3 */
+{
+    "cust_details" : {
+        "cname" : "Phoebe",
+        "city" : "chennai"
+    }
+}
+
+/* 4 */
+{
+    "cust_details" : {
+        "cname" : "Chandler",
+        "city" : "pune"
+    }
+}
+
+/* 5 */
+{
+    "cust_details" : {
+        "cname" : "Ross",
+        "city" : "pune"
+    }
+}
+
+/* 6 */
+{
+    "cust_details" : {
+        "cname" : "Rachel",
+        "city" : "Hyderabad"
+    }
+}
+
+/* 7 */
+{
+    "cust_details" : {
+        "cname" : "sherlock",
+        "city" : "chennai"
+    }
+}
+
+/* 8 */
+{
+    "cust_details" : {
+        "cname" : "euros",
+        "city" : "chennai"
+    }
+}
+
+/* 9 */
+{
+    "cust_details" : {
+        "cname" : "mycroft",
+        "city" : "chennai"
+    }
+}
+
+/* 10 */
+{
+    "cust_details" : {
+        "cname" : "Ram",
+        "city" : "Hyderabad"
+    }
+}
+
+/* 11 */
+{
+    "cust_details" : {
+        "cname" : "Janice",
+        "city" : "pune"
+    }
+}
+
+/* 12 */
+{
+    "cust_details" : {
+        "cname" : "Eugene",
+        "city" : "chennai"
+    }
+}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+4.The names of borrowers who live in Chennai. 4
+4.   db.Bank.find({"cust_details.city":"chennai"},{"cust_details.cname":1,_id:0})
+
+/* 1 */
+{
+    "cust_details" : {
+        "cname" : "Ram"
+    }
+}
+
+/* 2 */
+{
+    "cust_details" : {
+        "cname" : "Phoebe"
+    }
+}
+
+/* 3 */
+{
+    "cust_details" : {
+        "cname" : "sherlock"
+    }
+}
+
+/* 4 */
+{
+    "cust_details" : {
+        "cname" : "euros"
+    }
+}
+
+/* 5 */
+{
+    "cust_details" : {
+        "cname" : "mycroft"
+    }
+}
+
+/* 6 */
+{
+    "cust_details" : {
+        "cname" : "Eugene"
+    }
+}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Find the name, city, and assets of the branch with the largest assets.  5
+5. db.Bank.find({},{"branch_details.bname":1,"branch_details.bcity":1,"branch_details.assets":1}).sort({"branch_details.assets":-1}).limit(1)
+
+
+/* 1 */
+{
+    "_id" : 2.0,
+    "branch_details" : {
+        "bcity" : "chennai",
+        "bname" : "pune",
+        "assets" : 9200000.0
+    }
+}
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+The names and cities of customers who have a loan at Pune branch.  6
+6. db.Bank.find({"cust_details.loan":{$gt:0},"branch_details.bcity":"pune"},{"cust_details.cname":1,"cust_details.city":1,_id:0})
+
+/* 1 */
+{
+    "cust_details" : {
+        "cname" : "Chandler",
+        "city" : "pune"
+    }
+}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Find the number of accounts with balances between 700 and 900. 7
+7. db.Bank.find({"balance":{$gte:700,$lte:900}},{"accno":1})
+   db.Bank.find({$and:[{"balance":{$gte:700}},{"balance":{$lte:900}}]},{"accno":1})
+
+/* 1 */
+{
+    "_id" : 3.0,
+    "accno" : 333.0
+}
+
+/* 2 */
+{
+    "_id" : 12.0,
+    "accno" : 564.0
+}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+The names of customers with both deposit and loans at Pune branch. 8
+8. db.Bank.find({"cust_details.loan":{$gt:0},"cust_details.deposit":{$gt:0},"branch_details.bcity":"pune"},{"cust_details.cname":1,"cust_details.city":1,_id:0})
+ 
+
+{
+    "cust_details" : {
+        "cname" : "Chandler",
+        "city" : "pune"
+    }
+}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+9. The customers whose total loans are greater than the total amount in their bank accounts 9
+
+
+db.Bank.find({$where:"this.cust_details.loan>this.balance"},{"cust_details.cname":1,accno:1,"cust_details.loan":1,balance:1})
+
+
+/* 1 */
+{
+    "_id" : 1.0,
+    "accno" : 111.0,
+    "balance" : 43000.0,
+    "cust_details" : {
+        "cname" : "Ram",
+        "loan" : 220000.0
+    }
+}
+
+/* 2 */
+{
+    "_id" : 2.0,
+    "accno" : 222.0,
+    "balance" : 23000.0,
+    "cust_details" : {
+        "cname" : "Monica",
+        "loan" : 123000.0
+    }
+}
+
+/* 3 */
+{
+    "_id" : 3.0,
+    "accno" : 333.0,
+    "balance" : 897.0,
+    "cust_details" : {
+        "cname" : "Phoebe",
+        "loan" : 220000.0
+    }
+}
+
+/* 4 */
+{
+    "_id" : 4.0,
+    "accno" : 444.0,
+    "balance" : 600.0,
+    "cust_details" : {
+        "cname" : "Chandler",
+        "loan" : 520000.0
+    }
+}
+
+/* 5 */
+{
+    "_id" : 6.0,
+    "accno" : 666.0,
+    "balance" : 650.0,
+    "cust_details" : {
+        "cname" : "Rachel",
+        "loan" : 220000.0
+    }
+}
+
+/* 6 */
+{
+    "_id" : 7.0,
+    "accno" : 777.0,
+    "balance" : 590.0,
+    "cust_details" : {
+        "cname" : "sherlock",
+        "loan" : 220000.0
+    }
+}
+
+/* 7 */
+{
+    "_id" : 8.0,
+    "accno" : 888.0,
+    "balance" : 500.0,
+    "cust_details" : {
+        "cname" : "euros",
+        "loan" : 220000.0
+    }
+}
+
+/* 8 */
+{
+    "_id" : 9.0,
+    "accno" : 999.0,
+    "balance" : 23000.0,
+    "cust_details" : {
+        "cname" : "mycroft",
+        "loan" : 220000.0
+    }
+}
+
+/* 9 */
+{
+    "_id" : 10.0,
+    "accno" : 889.0,
+    "balance" : 23000.0,
+    "cust_details" : {
+        "cname" : "Ram",
+        "loan" : 220000.0
+    }
+}
+
+/* 10 */
+{
+    "_id" : 12.0,
+    "accno" : 564.0,
+    "balance" : 787.0,
+    "cust_details" : {
+        "cname" : "Eugene",
+        "loan" : 987400.0
+    }
+}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+The names of customers living on streets with names ending in "Hill". 10
+10. db.Bank.find({"cust_details.street":/hill$/},{"cust_details.cname":1})
+
+/* 1 */
+{
+    "_id" : 5.0,
+    "cust_details" : {
+        "cname" : "Ross"
+    }
+}
+
+/* 2 */
+{
+    "_id" : 11.0,
+    "cust_details" : {
+        "cname" : "Janice"
+    }
+}
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+The names of customers with an account but not a loan at Pune branch.  11
+11.  db.Bank.find({"cust_details.loan":{$eq:0},"branch_details.bcity":"pune"},{"cust_details.cname":1,_id:0})
+
+/* 1 */
+{
+    "cust_details" : {
+        "cname" : "Janice"
+    }
+}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+13. find the branch with the largest average balance. 13
+	
+  db.Bank.aggregate([{$group:{_id:"$branch_details.bname",average:{$avg:"$balance"}}},
+{$sort:{average:-1}},{$limit:1}]) 
+
+
+
+	
+  db.Bank.aggregate([{$group:{_id:"$branch_details.bname",average:{$avg:"$balance"}}},
+{$sort:{average:-1}},{$limit:1}]) 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+14. The branch name and number of customers for each branch 14
+    
+db.Bank.aggregate([{$group:{_id:"$branch_details.bname",
+                                    Total_customers:{$sum:1}}}])
+
+/* 1 */
+{
+    "_id" : "pune",
+    "average" : 17400.0
+}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+15. Deposit an additional Rs. 20,000 to Ram’s bank account. 15
+ db.Bank.update({"cust_details.cname":"Ram"},{$inc:{balance:20000}})
+    db.Bank.update({"cust_details.cname":"Ram"},{$inc:{"cust_details.deposit":20000}})
+db.Bank.find({_id:1})
