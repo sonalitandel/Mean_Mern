@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/agular.min.js">
+</script>
+</head>
+<body ng-App="" ng-init="marks=[10,20,30,40]">
+				<div np-repeat="Marks in marks">
+				{{mark}}
+				</div>
+</body>
+</html>				

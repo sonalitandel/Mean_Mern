@@ -1,0 +1,44 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+<script src="js/angular.min.js">
+</script>
+</head>
+<body ng-App="" ng-init="marks=[10,20,30,40]">
+				<div ng-repeat="mark in marks">
+				{{mark}}
+				</div>
+</body>
+</html>-->		
+
+<!DOCTYPE html>
+<html>
+<style>table, th,td{border:1px solid black}
+                 th{color:blue;background-color:brown}
+                 </style>
+
+
+	<script src="js/angular.min.js"></script>
+
+<body ng-App=""ng-init="employees=[ {empId:'e1001',empName:'Ram',empSal:20000},
+									{empId:'e1001',empName:'sonali',empSal:40000},
+								    {empId:'e1001',empName:'Shruti',empSal:15000},
+									{empId:'e1001',empName:'Roshni',empSal:33000}]">
+		<table>
+			<tr>
+				<th>Employee Id</th>
+				<th>Employee Name</th>
+				<th>Employee Salary</th>
+				
+			</tr>
+
+			<tr ng-repeat="employee in employees"> 
+				<td>{{employee.empId}}</td>
+				<td>{{employee.empName}}</td>
+				<td>{{employee.empSal}}</td>
+			</tr>
+
+		</table>							
+
+</body>
+</html>		

@@ -1,0 +1,47 @@
+<!--<!DOCTYPE html>
+<html>
+   <head>
+   <script src="js/angular.min.js">
+   </script>
+</head>
+   <body ng-App="">
+      <input type="text" ng-init="marks=[10,80,20,60,30]"/><br>
+      <div ng-repeat="mark in marks | orderBy :mark :true">
+      {{mark}}
+      </div>
+   </body>
+   </html>-->
+
+
+   <!DOCTYPE html>
+<html>
+<style>table, th,td{border:1px solid black}
+                 th{color:blue;background-color:brown}
+                 </style>
+
+
+	<script src="js/angular.min.js"></script>
+
+<body ng-App=""ng-init="employees=[ {empId:'e1001',empName:'Ram',empSal:20000},
+									{empId:'e1002',empName:'Sonali',empSal:40000},
+								    {empId:'e1003',empName:'Shruti',empSal:15000},
+									{empId:'e1004',empName:'Roshni',empSal:33000}]">
+		<table>
+			<tr>
+				<th>Employee Id</th>
+				<th>Employee Name</th>
+				<th>Employee Salary</th>
+				
+			</tr>
+
+			<tr ng-repeat="employee in employees|orderBy:'empName':true"> 
+				<td>{{employee.empId}}</td>
+				<td>{{employee.empName}}</td>
+				<td>{{employee.empSal}}</td>
+			</tr>
+
+		</table>							
+
+</body>
+</html>		
+

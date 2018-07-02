@@ -1,0 +1,54 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+</head>
+<body ng-App=""ng-init="marks=[10,20,30]">
+        Mark 1:{{marks[0]}}<br>
+        Mark 2:{{marks[1]}}<br>
+        Mark 3:{{marks[2]}}<br>
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<style>table, th,td{border:1px solid black}
+                 th{color:blue;background-color:brown}
+                 </style>
+
+
+	<script src="js/angular.min.js"></script>
+
+<body ng-App=""ng-init="employees=[ {empId:'e1001',empName:'Ram',empSal:20000},
+									{empId:'e1001',empName:'sonali',empSal:40000},
+								    {empId:'e1001',empName:'Shruti',empSal:15000},
+									{empId:'e1001',empName:'Roshni',empSal:33000}]">
+		<table>
+			<tr>
+				<th>Employee Id</th>
+				<th>Employee Name</th>
+				
+			</tr>
+
+			<tr> 
+				<td>{{employees[0].empId}}</td>
+				<td>{{employees[0].empName}}</td>
+				<td>{{employees[0].empSal}}</td>
+			</tr>
+
+			<tr> 
+				<td>{{employees[1].empId}}</td>
+				<td>{{employees[1].empName}}</td>
+				<td>{{employees[1].empSal}}</td>
+			</tr>
+
+			<tr> 
+				<td>{{employees[2].empId}}</td>
+				<td>{{employees[2].empName}}</td>
+				<td>{{employees[2].empSal}}</td>
+			</tr>
+		</table>							
+      
+</body>
+</html>
