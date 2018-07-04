@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+         <script>
+         	var app=angular.module("myApp",[])
+         	app.controller("myctrl",function($scope){
+         		$scope.f1=function()
+         		{
+         		$scope.visible=true;
+         	}
+         	})
+         </script>
+	</head>
+	<body ng-app="myApp" ng-controller="myctrl" ng-init="visible=false">
+		
+	<input type="button" value="toggle" ng-click="f1()"/>
+	<p ng-show="visible">Samsung</p>
+	</body>
+</html>

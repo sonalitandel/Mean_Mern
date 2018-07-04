@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<style>
+	table,th,td{border:2px solid blue}
+	th{color:black;background-color: tomato}
+</style>
+</head>
+<body>
+	<div ng-app="studentApp" ng-controller="studentController">
+	<table border="0">
+		<tr> 
+			<td>Name in upperCase :</td>
+			<td>{{student[0].name|uppercase}}</td>
+
+			<td>{{student[1].name|uppercase}}</td>
+		</tr>
+		<tr>
+			<td>subjects:</td>
+			<td>
+
+			<ul>
+				<li ng-repeat="subject in student[0].subjects |orderBy:'marks'">
+					{{subject.name + ',marks:'+subject.marks}}
+					</li>
+					</ul>
+						</td>
+						<td>
+
+			<ul>
+				<li ng-repeat="subject in student[1].subjects |orderBy:'marks'">
+					{{subject.name + ',marks:'+subject.marks}}
+					</li>
+					</ul>
+						</td>
+					</tr>
+					
+					<tr><td>total Marks:</td>
+						<td>{{student[0].total()}}</td>
+						<td>{{student[1].total()}}</td>
+					</tr>
+					<tr><td>total Average:</td>
+						<td>{{student[0].average()|number:2}}</td>
+						<td>{{student[1].average()|number:2}}</td>
+					</tr>
+					
+					</table>
+					<p>the greatest average is:{{greatest()}} </p>
+
+
+				</div>
+
+				<script>
+					var app=angular.module("studentApp",[]);
+					app.controller("studentController",function($scope){
+						$scope.student=[{
+							name:'Ramya',
+							subjects:[{name:'corejava',marks:70},
+							         {name:'servlet',marks:80},
+							         {name:'springMVC',marks:65}
+							         ],
+							total : function()
+							{
+								sum=0; for(i=0;i<$scope.student[0].subjects.length;i++)
+								{
+									sum=sum+$scope.student[0].subjects[i].marks;
+								}
+								return sum;
+							},
+							average:function()
+							{
+								return $scope.student[0].total()/$scope.student[0].subjects.length;
+							}         
+						},{
+							name:'john',
+							subjects:[{name:'corejava',marks:70},
+							         {name:'servlet',marks:90},
+							         {name:'springMVC',marks:65}
+							         ],
+							total : function()
+							{
+								sum=0; for(i=0;i<$scope.student[1].subjects.length;i++)
+								{
+									sum=sum+$scope.student[1].subjects[i].marks;
+								}
+								return sum;
+							},
+							average:function()
+							{
+								return $scope.student[1].total()/$scope.student[1].subjects.length;
+							}         
+						}];
+						$scope.greatest=function()
+						{
+							var avg1=$scope.student[0].average();
+							var avg2=$scope.student[1].average();
+							if(avg1>avg2)
+								return avg1;
+							else
+								return avg2;
+						}
+
+					})
+				</script>
+				
+
+
+
+</body>
+</html>

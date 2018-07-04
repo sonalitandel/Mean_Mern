@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+<script>
+		var app=angular.module('myApp',[])
+		app.controller('myctrl',function($scope)
+		{
+			$scope.myFunc=function(e){
+				$scope.x=e.clientX;
+				$scope.y=e.clientY;
+			}
+			$scope.count=0;
+		})
+	</script>
+	</head>
+<body>
+	<div ng-app="myApp" ng-controller="myctrl">
+		<h1 ng-mousemove="count=count+1">Mouse over me!!</h1>
+		<p>{{count}}</p>
+		<p>Coordinates:{{x+ ','+y}}</p>
+	</div>
+	</body>
+</html>
