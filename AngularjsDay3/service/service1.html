@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		angularjs Service Example
+	</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module('angularCustomApp',[])
+		app.controller('customctrl',function($scope,CalcService){
+			$scope.sqrt=function()
+			{
+				return CalcService.sqrt($scope.value)
+			}
+			$scope.power=function()
+			{
+				return CalcService.power($scope.value,$scope.value1)
+			}
+          })
+		app.service('CalcService',function()
+		{
+			this.sqrt=function(a)
+			{
+				return Math.sqrt(a)
+			}
+			this.power=function(a,b)
+			{
+				return Math.pow(a,b)
+			}
+
+		})
+	</script>
+  
+</head>
+<body ng-app="angularCustomApp" ng-controller="customctrl" ng-init="">
+	Enter a number:<input type="number" ng-model="value"/>
+	Enter the power:<input type="number" ng-model="value1"/>
+	<p>Square root :{{sqrt()}}</p>
+	<p>Power of number:{{power()}}</p>
+	<p>
+</body>
+</html>

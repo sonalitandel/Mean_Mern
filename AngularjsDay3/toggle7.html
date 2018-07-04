@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Angularjs custom Filter Example</title>
+		<script src="js/angular.min.js"></script>
+		<script type="text/javascript">
+           var app=angular.module('customFilterApp',[]);         
+            app.filter('orderFilter',function(){
+			   	
+			   return function(name,option)
+			   	 {
+			   	 	var result;
+			   	 	
+                   
+                   if(option=='asc')
+                   {
+                  	 result=name.sort();
+                   }
+                   /*else if(option=='desc')
+                   {
+                   	 result=name.sort().reverse();
+                   }*/
+
+			       
+			    return result;
+			   
+                 }
+                 
+             });
+            app.controller("myctrl",function($scope)
+            {
+            	$scope.names=["sonali","roshini","afroza","tejal"]
+            })
+			   
+
+			</script>
+			</head>
+	<body ng-app="customFilterApp" ng-controller="myctrl">
+		<p>
+			<p>type either 'asc' or 'desc'</p>
+			<button  ng-init="option=asc">
+			<button  ng-init="option=asc">	
+
+			<div ng-repeat="name in names|orderFilter:option">
+				{{ name}}
+			</div>
+		</p>
+		
+	</body>
+</html>
+			

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Angularjs custom Filter Example</title>
+		<script src="js/angular.min.js"></script>
+		<script type="text/javascript">
+           var app=angular.module('customFilterApp',[]);         
+            app.filter('getord',function($filter)
+            {
+			   	return function(n)
+			   	{
+			   		if(!n)
+			   		{
+			   			return;
+			   		}
+                   var s=["th","st","nd","rd"]
+                   var v=n%100;
+                   var a=n+(s[(v-20)%10]||s[v]||s[0]);
+                   
+                       return a;
+			        }
+
+                 });
+			   
+
+			</script>
+			</head>
+	<body ng-app="customFilterApp" >
+		<p>
+			<input type="text" ng-model="n" onclick=>
+			{{n|getord}}
+		</p>
+		
+	</body>
+</html>

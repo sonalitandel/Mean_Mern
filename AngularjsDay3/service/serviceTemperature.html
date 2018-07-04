@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		angularjs Temperature Example
+	</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module('myTemperatureApp',[])
+		app.controller('myTempertureController',function($scope,CalTemperature){
+           $scope.fahrenhite=function()
+           {
+           	return CalTemperature.Fahren($scope.temp)
+           }
+           $scope.Celcius=function()
+           {
+           	return CalTemperature.Cel($scope.temp)
+           }
+
+		})
+		app.service('CalTemperature',function(){
+			this.Fahren=function(a)
+			{
+				return (a*9/5)+32;
+			}
+			this.Cel=function(a)
+			{
+				return (a-32)*5/9;
+			}
+		})
+	</script>
+
+	<title>Temperature Control</title>
+	</head>
+	
+	<body ng-app="myTemperatureApp" ng-controller="myTempertureController">
+		Enter the temperature: <input type="number" ng-model="temp">
+		Temperature in Fahrenhite:<p>{{fahrenhite()}}</p>
+		Temperature in Celcius:<p>{{Celcius()}}</p>
+		
+	</body>
+</html>

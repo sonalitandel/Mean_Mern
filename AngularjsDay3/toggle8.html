@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module("myApp",[])
+		app.filter('orderFilter',function(){
+			   	
+			   return function(name,option)
+			   	 {
+			   	 	var result;
+			   	 	
+                   
+                   if(option=='asc')
+                   {
+                  	 result=name.sort();
+                   }
+                   else if(option=='desc')
+                   {
+                   	 result=name.sort().reverse();
+                   }
+
+			       
+			    return result;
+			   
+                 }
+                 
+             });
+		app.controller("myCtrl",function($scope){
+			$scope.f1=function(){
+				$scope.option='asc';
+				$scope.x=!$scope.x;
+
+			}
+			$scope.f2=function(){
+				$scope.option='desc';
+				$scope.x=!$scope.x;
+			}
+
+			$scope.names=["sonali","roshini","afroza","tejal"]
+		});
+	</script>
+</head>
+<body ng-App="myApp" ng-controller="myCtrl" ng-init="option='null'">
+	<input type="button" value="Ascending" ng-click="f1()" />
+	<input type="button" value="descending" ng-click="f2()"/><br>
+	
+	<div ng-show='x'ng-repeat="name in names|orderFilter:option">
+		{{name}}
+	</div>
+	
+
+</body>
+</html>

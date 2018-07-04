@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Angularjs custom Filter Example</title>
+		<script src="js/angular.min.js"></script>
+		<script type="text/javascript">
+           var app=angular.module('customFilterApp',[]);         
+            app.filter('removehypen',function(){
+			   	return function(item){
+                   var words=item.split('-');
+                   var sentence=words.join(" ");
+                       return sentence;
+			        }
+
+                 });
+			   
+
+			</script>
+			</head>
+	<body ng-app="customFilterApp" >
+		<p>
+			<input type="text" ng-model="sent">
+			{{ sent | removehypen}}
+		</p>
+		
+	</body>
+</html>
+			
